@@ -1,0 +1,8 @@
+resource_group_location = "eastus"
+username = "azureadmin"
+password = "E@gL3Ey3$!"
+service = "shd"
+region = "use"
+environment = "poc"
+instance = "01"
+resource_group_name = "shd-poc-use-01-rg"
