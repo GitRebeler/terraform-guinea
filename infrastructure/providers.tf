@@ -13,7 +13,7 @@ terraform {
   }
 
   backend "azurerm" {
-      subscription_id = "2f784c856-2e5c-447e-a838-88cbe8650f5f"
+      subscription_id = "f784c856-2e5c-447e-a838-88cbe8650f5f"
       resource_group_name  = "mgt-dev-use-IAC-01-rg"
       storage_account_name = "mgtdevuse01sa"
       container_name       = "terraform"
