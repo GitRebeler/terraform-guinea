@@ -5,7 +5,7 @@ locals {
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
   # name     = "${local.formatted_name}-rg"
-  name = "mgt-dev-use-TST-01-rg"
+  name = "shd-dev-use-TST-01-rg"
 }
 
 # # Create virtual network
