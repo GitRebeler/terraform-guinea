@@ -1,11 +1,10 @@
 locals {
-  formatted_name = "${var.service}-${var.environment}-${var.region}-${var.instance}"
+  formatted_name = "${var.svc}-${var.env}-${var.rgn}-${var.clientcode}-${var.inst}"
 }
 
 resource "azurerm_resource_group" "rg" {
-  location = var.resource_group_location
-  # name     = "${local.formatted_name}-rg"
-  name = "shd-dev-use-TST-01-rg"
+  location = var.loc
+  name     = "${local.formatted_name}-rg"
 }
 
 # Create virtual network
@@ -58,7 +57,7 @@ resource "azurerm_network_interface" "nice_nic" {
   resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
-    name                = "${local.formatted_name}-nic-configuration"
+    name                          = "${local.formatted_name}-nic-configuration"
     subnet_id                     = azurerm_subnet.nice_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.nice_public_ip.id
@@ -92,14 +91,14 @@ resource "azurerm_storage_account" "nice_storage_account" {
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "nice_vm" {
-  name                = "${local.formatted_name}-vm"
+  name                  = "${local.formatted_name}-vm"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nice_nic.id]
-  size                  = "Standard_DS1_v2"
+  size                  = var.vm-size-app
 
   os_disk {
-    name                = "${local.formatted_name}-os-disk"
+    name                 = "${local.formatted_name}-os-disk"
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
   }
@@ -111,9 +110,9 @@ resource "azurerm_linux_virtual_machine" "nice_vm" {
     version   = "latest"
   }
 
-  computer_name  = "hostname"
-  admin_username = var.username
-  admin_password = var.password
+  computer_name                   = "hostname"
+  admin_username                  = var.username
+  admin_password                  = var.password
   disable_password_authentication = false
 
   boot_diagnostics {
