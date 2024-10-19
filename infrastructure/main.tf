@@ -1,5 +1,8 @@
 locals {
   formatted_name = "${var.svc}-${var.env}-${var.rgn}-${var.clientcode}-${var.inst}"
+  vm_name_prefix = "${var.svc}-tl-"
+  vm_web_names = [for i in range(1, (var.deployment-number + 1)) : format("%s%s%02d%s%s",local.vm_name_prefix,"web",i,"-",var.clientcode)]
+  vm_app_names = [for i in range(1, (var.deployment-number + 1)) : format("%s%s%02d%s%s",local.vm_name_prefix,"app",i,"-",var.clientcode)]
 }
 
 resource "azurerm_resource_group" "rg" {

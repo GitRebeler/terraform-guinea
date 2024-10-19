@@ -76,5 +76,5 @@ variable "vm-size-web" {
 
 variable "deployment-number" {
   type    = string
-  default = "01"
+  default = 03
 }
